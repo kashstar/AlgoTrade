@@ -1,17 +1,17 @@
 # AlgoTrade
 
-A small BTC/USD backtesting lab: pull 1-minute OHLCV data from the [Bitstamp API](https://www.bitstamp.net/api/), compute technical indicators, and backtest trading strategies with [`vectorbt`](https://github.com/polakowo/vectorbt).
+A small BTC/USD backtesting lab: pull 5 years of daily OHLCV data from the [Bitstamp API](https://www.bitstamp.net/api/), compute technical indicators, and backtest trading strategies with [`vectorbt`](https://github.com/polakowo/vectorbt).
 
 ## Contents
 
 - `main.ipynb` — the backtesting notebook:
-  - Loads & prepares OHLCV data
-  - Computes indicators: SMA (fast/slow), RSI, MACD, Bollinger Bands, ATR
+  - Loads & prepares 5 years of daily OHLCV data
+  - Computes indicators: SMA(20)/SMA(50), RSI(14), MACD, Bollinger Bands, ATR
   - Backtests two strategies — **Moving Average Crossover** (trend-following) and **RSI Mean Reversion** (contrarian)
   - Compares both against a buy & hold benchmark (returns, Sharpe, max drawdown, win rate)
   - Equity curve, drawdown, and trade plots for each strategy
-- `data.ipynb` — pulls 1-minute OHLC candles for BTC/USD from Bitstamp's `/api/v2/ohlc/` endpoint.
-- `tutorial.csv` — sample OHLCV data (timestamp, open, high, low, close, volume) used by `main.ipynb`.
+- `data.ipynb` — fetches daily OHLC candles for BTC/USD from Bitstamp's `/api/v2/ohlc/` endpoint, paginating past the 1000-candle-per-request limit to cover a full 5-year window.
+- `tutorial.csv` — 5 years of daily OHLCV data (timestamp, open, high, low, close, volume) used by `main.ipynb`.
 
 ## Setup
 
@@ -25,7 +25,7 @@ pip install "numpy<2" pandas vectorbt requests ipykernel
 
 ## Usage
 
-- Run `data.ipynb` to fetch fresh OHLCV data (adjust `market_symbol`, `step`, and `limit` as needed).
+- Run `data.ipynb` to fetch fresh OHLCV data (adjust `market_symbol`, `STEP`, and `YEARS` as needed).
 - Run `main.ipynb` top to bottom to reproduce the indicators, strategies, and comparison charts. Tune strategy parameters (MA windows, RSI thresholds, fees) in the config cell at the top.
 
 ## Disclaimer
