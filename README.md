@@ -6,9 +6,9 @@ A small BTC/USD backtesting lab: pull 5 years of daily OHLCV data from the [Bits
 
 - `main.ipynb` - the backtesting notebook:
   - Loads & prepares 5 years of daily OHLCV data
-  - Computes indicators: SMA(20)/SMA(50), RSI(14), MACD, Bollinger Bands, ATR
-  - Backtests two strategies - **Moving Average Crossover** (trend-following) and **RSI Mean Reversion** (contrarian)
-  - Compares both against a buy & hold benchmark (returns, Sharpe, max drawdown, win rate)
+  - Computes indicators: SMA(20)/SMA(50)/SMA(200), RSI(14), MACD, Bollinger Bands, ATR
+  - Backtests three strategies - **Moving Average Crossover** (trend-following), **RSI Mean Reversion** (contrarian), and **Golden Cross** (SMA 20/200 trend filter)
+  - Compares all three against a buy & hold benchmark (returns, Sharpe, max drawdown, win rate) - the Golden Cross is the one that actually beats buy & hold, by staying out of BTC's deepest drawdowns
   - Equity curve, drawdown, and trade plots for each strategy
 - `data.ipynb` - fetches daily OHLC candles for BTC/USD from Bitstamp's `/api/v2/ohlc/` endpoint, paginating past the 1000-candle-per-request limit to cover a full 5-year window.
 - `tutorial.csv` - 5 years of daily OHLCV data (timestamp, open, high, low, close, volume) used by `main.ipynb`.
