@@ -1,0 +1,7 @@
+numpy<2
+pandas
+vectorbt
+requests
+pytest
+ipykernel
+jupyter

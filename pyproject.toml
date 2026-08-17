@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algotrade"
+version = "0.1.0"
+description = "BTC/USD backtesting lab: indicators, strategies, and walk-forward validation on vectorbt"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy<2",
+    "pandas",
+    "vectorbt",
+    "requests",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ipykernel", "jupyter"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
