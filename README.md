@@ -4,6 +4,8 @@ A BTC/USD backtesting project: an installable Python package (`algotrade`) for i
 
 The headline result: a **Golden Cross (SMA 20/200)** strategy beats buy & hold on 5 years of daily BTC/USD data (+179% vs +41%, less than half the drawdown). But walk-forward validation shows that edge mostly evaporates out-of-sample - which is the more important result. See [`notebooks/main.ipynb`](notebooks/main.ipynb) section 7-8 for the full story.
 
+![Portfolio value over time for all four strategies](assets/equity_curves.png)
+
 ## Project structure
 
 ```
@@ -80,6 +82,21 @@ print(compare_strategies(close, signals))
 
 Adding a new strategy: write a function in `src/algotrade/strategies.py` that takes a close price series and returns `(entries, exits)` boolean Series, then register it in `STRATEGIES` / `DEFAULT_PARAMS`. It automatically becomes available to the comparison table, the notebook, and the sweep/walk-forward scripts.
 
+## Charts
+
+<table>
+<tr>
+<td><img src="assets/price_chart.png" alt="BTC/USD price with SMA 20/50/200 and Bollinger Bands" width="420"></td>
+<td><img src="assets/strategy_comparison.png" alt="In-sample total return by strategy" width="420"></td>
+</tr>
+</table>
+
+All charts are generated from the live `algotrade` package, not hand-drawn - regenerate them after any code/data change with:
+
+```bash
+python scripts/generate_charts.py
+```
+
 ## Key finding: in-sample vs. out-of-sample
 
 | | In-sample (full history) | Out-of-sample (walk-forward) |
@@ -87,6 +104,8 @@ Adding a new strategy: write a function in `src/algotrade/strategies.py` that ta
 | Golden Cross return | +179% | +100% (compounded across folds) |
 | Buy & Hold return | +41% | +174% (compounded across folds) |
 | Folds/period where strategy wins | - | 1 of 5 |
+
+![Out-of-sample return per walk-forward fold, Golden Cross vs buy & hold](assets/walk_forward.png)
 
 The parameters (SMA 20/200) were originally chosen by grid-searching the *entire* history, so the in-sample number is optimistic by construction. `scripts/walk_forward.py` / `notebooks/main.ipynb` section 7 re-select parameters on a rolling basis using only past data, which is a much more honest test - and under that test, Golden Cross does not reliably beat buy & hold. Treat the in-sample result as a methodology demonstration, not a trading signal.
 

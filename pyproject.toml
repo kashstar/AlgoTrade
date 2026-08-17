@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "ipykernel", "jupyter"]
+dev = ["pytest", "ipykernel", "jupyter", "matplotlib"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
